@@ -1,6 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 *.idea
 *.iml
+*.browser_driver/Chromedriver
+
 
 ### Java template
 # Compiled class file
