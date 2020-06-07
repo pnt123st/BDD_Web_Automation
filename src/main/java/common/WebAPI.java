@@ -12,7 +12,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Optional;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,10 +34,15 @@ public class WebAPI {
     public String saucelabs_accesskey = "";
 
 
+    public void launchBrowser() throws IOException {
+        setUp(false,"browserstack","OS X",
+                "10.15.5","chrome","83",
+                "https://www.amazon.com/");
+    }
 
-    public void setUp(boolean useCloudEnv,String cloudEnvName,
-                      String os,String os_version,String browserName,
-                              String browserVersion,String url)throws IOException {
+    public void setUp(boolean useCloudEnv, String cloudEnvName,
+                              String os, String os_version, String browserName,
+                              String browserVersion, String url)throws IOException {
         if(useCloudEnv==true){
             if(cloudEnvName.equalsIgnoreCase("browserstack")) {
                 getCloudDriver(cloudEnvName,browserstack_username,browserstack_accesskey,os,os_version, browserName, browserVersion);
@@ -53,10 +57,11 @@ public class WebAPI {
         driver.get(url);
         //driver.manage().window().maximize();
     }
-    public WebDriver getLocalDriver(@Optional("mac") String OS, String browserName){
+
+    public WebDriver getLocalDriver(String OS, String browserName){
         if(browserName.equalsIgnoreCase("chrome")){
             if(OS.equalsIgnoreCase("OS X")){
-                System.setProperty("webdriver.chrome.driver", "../browser_driver/chromedriver");
+                System.setProperty("webdriver.chrome.driver", "browser_driver/chromedriver");
             }else if(OS.equalsIgnoreCase("Windows")){
                 System.setProperty("webdriver.chrome.driver", "../Generic/Browser_Driver/Window/chromedriver.exe");
             }
@@ -65,7 +70,7 @@ public class WebAPI {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--disable-notifications");
             if(OS.equalsIgnoreCase("OS X")){
-                System.setProperty("webdriver.chrome.driver", "../browser_driver/chromedriver");
+                System.setProperty("webdriver.chrome.driver", "browser_driver/chromedriver");
             }else if(OS.equalsIgnoreCase("Windows")){
                 System.setProperty("webdriver.chrome.driver", "../Generic/Browser_Driver/Window/chromedriver.exe");
             }
